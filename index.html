@@ -1,0 +1,122 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whatsapp a Number</title>
+  </head>
+  <style type="text/css">
+    body {
+      background-color: #128c7e;
+      color: #fff;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-size: 6vw;
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+    }
+    .number-field {
+      display: flex;
+      font-size: 5vw;
+      border: 1px solid #fff;
+      border-radius: 10px;
+    }
+    .country-code {
+      background-color: #128c7e;
+      color: #fff;
+      border-radius: 10px 0 0 10px;
+      padding: 5px;
+      border-right: 1px solid #fff;
+    }
+    .number {
+      border: 0px;
+      background-color: transparent;
+      font-size: 5vw;
+      color: #fff;
+      padding: 0 15px;
+      width: 100%;
+    }
+    .number:focus,
+    .number:active {
+      outline: none;
+    }
+    .submit {
+      background-color: #25d366;
+      border: 0px;
+      border-radius: 10px 10px;
+      color: white;
+      font-size: 2vw;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .submit img {
+        width: 5vw;
+    }
+    .error {
+      display: flex;
+      justify-content: space-between;
+      background-color: rgb(150, 46, 46);
+      color: #fff;
+      font-size: 1vw;
+      padding: 10px;
+      display: none;
+      border-radius: 10px 10px;
+      margin-top: 10px;
+    }
+
+    .error.show {
+      display: block;
+    }
+    .close-error {
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <h1>Whatsapp A Number</h1>
+    <div class="container">
+      <div class="number-field">
+        <div class="country-code">+91</div>
+        <input
+          type="text"
+          class="number"
+          maxlength="10"
+          id="phone-number"
+          accept-charset="0,1,2,3,4,5,6,7,8,9"
+        />
+      </div>
+      <button class="submit" onclick="whatsapp()">
+        <img src="./logo.svg"/>
+      </button>
+    </div>
+    <div class="container">
+      <div class="error" id="error">
+        <span class="error-text">Enter a valid Phone number</span>
+        <span class="close-error" onclick="toggleError()">&times;</span>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function whatsapp() {
+        const phoneNumber = document.getElementById("phone-number").value;
+        if (isNaN(parseInt(phoneNumber)) || phoneNumber.length < 10) {
+          toggleError(true);
+          return;
+        }
+        const countryCode = "91";
+        window.location.href = `http://wa.me/${countryCode}${phoneNumber}`;
+      }
+      function toggleError(alwasShow) {
+        const errorElement = document.getElementById("error");
+        const isShown = errorElement.classList.contains("show");
+        if (isShown && !alwasShow) {
+          errorElement.classList.remove("show");
+        } else if (!isShown){
+          errorElement.classList.add("show");
+        }
+      }
+    </script>
+  </body>
+</html>
