@@ -87,11 +87,9 @@
     <div class="flex-box">
       <div class="container">
         <div class="number-field">
-          <div class="country-code">+91</div>
           <input
             type="text"
             class="number"
-            maxlength="10"
             id="phone-number"
             accept-charset="0,1,2,3,4,5,6,7,8,9"
           />
@@ -109,12 +107,16 @@
     </div>
     <script type="text/javascript">
       function whatsapp() {
-        const phoneNumber = document.getElementById("phone-number").value;
+        let phoneNumber = document.getElementById("phone-number").value;
         if (isNaN(parseInt(phoneNumber)) || phoneNumber.length < 10) {
-          toggleError(true);
+          toggleError(true);  
           return;
         }
+        phoneNumber = phoneNumber.split(' ').join('');
         const countryCode = "91";
+        if (phoneNumber.substr(0,3) === '+91')  {
+          phoneNumber = phoneNumber.substr(3);
+        }
         window.location.href = `http://wa.me/${countryCode}${phoneNumber}`;
       }
       function toggleError(alwasShow) {
